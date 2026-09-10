@@ -19,7 +19,7 @@ func TestLogic_WrongArgs(t *testing.T) {
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			err := f(tc.arg)
+			_, err := f(tc.arg)
 			require.Error(t, err)
 			require.Contains(t, err.Error(), "Неверная команда")
 		})

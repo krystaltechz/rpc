@@ -15,11 +15,11 @@ func main() {
 			log.Fatal(err)
 		}
 
-		if err = f(cmd); err != nil {
-			fmt.Println(err)
-			break
+		str, err := f(cmd)
+		if err != nil {
+			log.Fatal(err)
 		}
 
-		fmt.Println("Вы выиграли | Ничья")
+		fmt.Println(str)
 	}
 }

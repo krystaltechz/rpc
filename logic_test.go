@@ -6,10 +6,23 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestLogic_WrongArg(t *testing.T) {
-	cmd := "шарик"
+func TestLogic_WrongArgs(t *testing.T) {
+	cases := []struct {
+		name string
+		arg  string
+	}{
+		{
+			name: "wrong argument",
+			arg:  "шарик",
+		},
+	}
 
-	err := f(cmd)
-	require.Error(t, err)
-	require.Contains(t, err.Error(), "Неверная команда")
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			_, err := f(tc.arg)
+			require.Error(t, err)
+			require.Contains(t, err.Error(), "Неверная команда")
+		})
+	}
+
 }

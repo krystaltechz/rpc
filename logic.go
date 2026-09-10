@@ -1,8 +1,9 @@
 package main
 
 import (
+	"crypto/rand"
 	"errors"
-	"math/rand"
+	"math/big"
 )
 
 // TODO: написать func(cmd string) {}
@@ -16,7 +17,13 @@ func f(cmd string) error {
 		return errors.New("Неверная команда")
 	}
 	arr := []string{"камень", "ножницы", "бумага"}
-	computer := arr[rand.Intn(3)]
+
+	generated, err := generateInt()
+	if err != nil {
+		return err
+	}
+
+	computer := arr[generated]
 
 	if cmd == computer {
 		return nil
@@ -29,4 +36,16 @@ func f(cmd string) error {
 	} else {
 		return errors.New("Вы проиграли")
 	}
+}
+
+// Обновил поведение генерации рандомных чисел
+func generateInt() (int64, error) {
+	max := big.NewInt(3)
+
+	n, err := rand.Int(rand.Reader, max)
+	if err != nil {
+		return 0, errors.New("Ошибка при генерации числа")
+	}
+
+	return n.Int64(), nil
 }
